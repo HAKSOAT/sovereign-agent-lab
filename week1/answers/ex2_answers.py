@@ -82,18 +82,18 @@ SCENARIO_2_HALLUCINATED = False   # True or False
 
 # Paste the final [AI] message.
 SCENARIO_2_FINAL_ANSWER = """
-The Albanach has a capacity of 180, which is too small. The Haymarket Vaults can only hold 160, also too small. The Guilford Arms has 200 capacity but doesn't offer vegan options. The Bow Bar can only take 80 people and is already ful...
+None of the known Edinburgh venues can accommodate 300 people with vegan options. The maximum capacity among the checked venues is 200 (The Guilford Arms), but it doesn't offer vegan options. The largest venue with vegan options (The Albanach) only holds 180 people. You may need to consider alternative venues outside this list or adjust your requirements.
 """
 
 # Scenario 3: out of scope (train times)
 # Did the agent try to call a tool?
-SCENARIO_3_TRIED_A_TOOL = False   # True or False
+SCENARIO_3_TRIED_A_TOOL = True   # True or False
 
-SCENARIO_3_RESPONSE = "Since there's no tool for train times, I can't use any of the provided functions to answe..."
+SCENARIO_3_RESPONSE = "I don't have access to real-time train schedules or transportation data. For the most accurate information about the last train from Edinburgh Waverley to London, I recommend checking:\n1. The National Rail website (https://www.nationalrail.co.uk)\n2. Train service apps like Citymapper or Trainline\n3. The specific train operator's website (e.g., LNER)\n\nWould you like help with anything related to Edinburgh pubs, weather, or event planning instead?"
 
 # Would this behaviour be acceptable in a real booking assistant? Min 30 words.
 SCENARIO_3_ACCEPTABLE = """
-This behaviour would be acceptable in a real booking assistant because the agent is able to handle the out of scope request by saying that there is no tool for train times and providing a clear explanation. Unless there is a tool for train times and the initial prompt points to its importance.
+This behaviour would be acceptable in a real booking assistant because the agent is able to handle the out of scope request by saying that there is no tool for train times, also the suggestion from the agent is a witty and helpful one. Unless there is a tool for train times and the tool then calls it, but then a train tool really should not be available to a booking assistant in the first place.
 """
 
 # ── Task D ─────────────────────────────────────────────────────────────────
@@ -130,7 +130,11 @@ The LangGraph graph is more flexible than the Rasa graph. The LangGraph graph ha
 # Must reference a specific behaviour from your run.
 
 MOST_SURPRISING = """
-The model appears refers to the tools in third person, like a completely different entity. Also some of the tool calling prompts look incomplete e.g. 
-check_pub_availability({"pub_name": "The Haymarket Vaults", "required_capacity": 300, "requires_vegan":)
-check_pub_availability({"pub_name": "The Guilford Arms", "required_capacity": 300, "requires_vegan": tr)
+The model was able to know that the placeholder was used:
+
+"The response came back with a placeholder image URL since the live image model isn't configured"
+
+The model did not spend more compute time thinking after finding an alternative venue to the Bow Bar:
+
+"Now, the user's original request was to check The Bow Bar first, and if not possible, check any other venue. Since The Albanach works, I need to present this as the solution. The user probably wants to know that there's an alternative venue that fits their needs. They might also need the address and other details for planning. I should confirm that The Albanach meets all their requirements and provide the necessary information. No need to check the other venues since we already found a suitable one."
 """
